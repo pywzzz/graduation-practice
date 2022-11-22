@@ -1,0 +1,72 @@
+# DataSource Config
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/0716_sboot_db?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: 123456
+
+server:
+  port: 8080
+
+#配置整合druid 访问:http://localhost:8080/driud
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/graduation_practice_database1?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 237735001aS
+      initial-size: 5
+      max-active: 20
+      min-idle: 10
+      max-wait: 10
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+  #配置修正swagger错误路径分隔符
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  kafka:
+    bootstrap-servers: 192.168.48.162:9092
+    consumer:
+      group-id: testtopic
+
+
+#配置mybatis-plus
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.pywzzz.graduation_practice.entity
+
+#配置分页
+#pagehelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+#swagger配置:  访问: localhost:8080/swagger-ui/index.html
+swagger:
+  #扫描基础包，把哪些类交给swagger管理
+  base-package: com.pywzzz.graduation_practice
+  #模块名称，在显示页面中会显示
+  title: "测试swagger使用"
+  #描述
+  description: "测试swagger使用相关功能"
+  #版本信息
+  version: "2.0"
+  #联系人
+  contact:
+    #名称
+    name: "AAA"
+    #邮箱
+    email: "test@163.com"
+    # 个人微博地址
+    url: "https://www.baidu.com"
+  #团队联系方式
+  terms-of-service-url: "服务条款：https://www.baidu.com"
+
+

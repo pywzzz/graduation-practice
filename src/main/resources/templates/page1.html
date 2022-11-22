@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入layui的css样式文件-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="/layui/css/layui.css"/>
+</head>
+<body>
+<h1>这是我自己的页面</h1>
+<button class="layui-btn layui-btn-normal" id="btn1">测试按钮1</button>
+<button class="layui-btn" id="btn2">测试按钮2</button>
+<span class="layui-btn layui-btn-danger">这是个SPAN</span>
+<a href="#" class="layui-btn layui-btn-warm">这是个超链接</a>
+<hr/>
+<!--显示一个日期框-->
+<input type="text" class="layui-input" id="test1" style="width:200px;">
+
+<!--引入layui js文件-->
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+<!--定义自己的js代码块-->
+<script type="text/javascript">
+    //layui: layui组件封装好的对象
+    //use: 是layui的一个特定方法,可以引入组件，实现功能
+    layui.use(["layer", "laydate"], function () {
+        //定义变量存储对应的组件对象
+        var layer = layui.layer;
+        //使用laydate对象
+        var laydate = layui.laydate;
+        //使用jquery对象
+        var $ = layui.$;
+        //调用layer组件的提示信息方法
+        $("#btn1").click(function () {
+            layer.msg("你好");
+        })
+
+        $("#btn2").click(function () {
+            layer.alert("你好么");
+        })
+
+        //使用laydate渲染一个日期框
+        laydate.render({
+            elem: "#test1"
+        });
+
+    });
+
+
+</script>
+</body>
+</html>
