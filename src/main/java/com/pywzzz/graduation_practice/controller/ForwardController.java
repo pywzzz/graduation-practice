@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/forward")
 public class ForwardController {
+
     @RequestMapping("/page1")
     public String page1() {
         return "page1";
@@ -14,5 +15,25 @@ public class ForwardController {
     @RequestMapping("/page2")
     public String page2() {
         return "page2";
+    }
+
+    @RequestMapping("/toDept")
+    public String toDept() {
+        return "dept";
+    }
+
+    @RequestMapping("/toLogin")
+    public String toLogin() {
+        return "login";
+    }
+
+    @RequestMapping("/toHome")
+    public String toHome(){
+        return "home";
+    }
+
+    @RequestMapping("/toRole")
+    public String toRole(){
+        return "role";
     }
 }

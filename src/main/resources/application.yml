@@ -31,6 +31,10 @@ spring:
     consumer:
       group-id: testtopic
 
+  #设置json时间数据的格式和时区
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
 
 #配置mybatis-plus
 mybatis-plus:

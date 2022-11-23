@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <!--引入layui的css样式文件-->
+  <link rel="stylesheet"
+        type="text/css"
+        href="/layui/css/layui.css"/>
+</head>
+<body>
+<!--
+数据表格:
+1.定义表格标签
+2.通过layui表格组件渲染表格标签
+3.在表格组件中指明表格加载的数据来源
+-->
+<table class="layui-table" id="test"></table>
+
+<!--引入layui js文件-->
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+<!--定义自己的js代码块-->
+<script type="text/javascript">
+  //layui: layui组件封装好的对象
+  //use: 是layui的一个特定方法,可以引入组件，实现功能
+  layui.use(["layer","laydate","table"],function(){
+    //获取table组件对象
+    var table = layui.table;
+    //使用table组件渲染表格标签
+    table.render({
+      elem:"#test" //定义要渲染的目标表格标签
+      ,url:"/role/list"  //定义要获取的服务器数据地址
+      ,cols:[
+        [
+          {field:'roleId', width:120, title: '角色编号', sort: true}
+          ,{field:'roleName', width:100, title: '角色名称'}
+          ,{field:'status', width:80, title: '状态', sort: true}
+          ,{field:'deleteFlag', width:80, title: '删除标记',hide:true}
+          ,{field:'createBy', title: '创建人', width: '100', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+          ,{field:'createTime', title: '创建时间', width:180, sort: true}
+          ,{field:'updateBy', title: '修改人', width:100, sort: true}
+          ,{field:'updateTime', title: '修改时间', width:180}
+        ]
+      ]
+    })
+
+  });
+
+</script>
+</body>
+</html>
