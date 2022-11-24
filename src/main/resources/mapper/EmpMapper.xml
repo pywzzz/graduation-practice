@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pywzzz.graduation_practice.mapper.EmpMapper">
+    <!--定义可以被复用的查询sql-->
+    <sql id="empSql">
+        select
+            e.emp_id,e.emp_name,e.user_name,e.password,e.sex,e.birthday,e.phone,e.email,
+            e.status,e.delete_flag,e.create_by,e.create_time,e.update_by,e.update_time,e.dept_id,e.role_id,
+            d.dept_name,
+            r.role_name
+        from tbl_emp e
+        join tbl_dept d
+        on e.dept_id=d.dept_id
+        join tbl_role r
+        on e.role_id=r.role_id
+    </sql>
+
+    <!--定义查询结果的实体映射-->
+    <resultMap id="empMap" type="Emp" autoMapping="true">
+        <id column="emp_id" property="empId"/>
+        <!--将查询出的部门的列数据和部门实体映射起来-->
+        <association property="dept" javaType="Dept" autoMapping="true"></association>
+        <!--将查询出的角色的列数据和角色实体映射起来-->
+        <association property="role" javaType="Role" autoMapping="true"></association>
+    </resultMap>
+
+    <select id="getByUserNameAndPassword" resultMap="empMap">
+        <!--引用定义好的sql语句-->
+        <include refid="empSql"></include>
+        where e.delete_flag='0'
+        and e.user_name = #{userName}
+        and e.password = #{password}
+    </select>
+</mapper>

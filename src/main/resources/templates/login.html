@@ -39,14 +39,13 @@
         <label class="layui-form-label">用户名</label>
 
         <div class="layui-input-inline">
-
-          <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" id="username">
+          <input type="text" name="userName"   lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" id="userName">
         </div>
       </div>
       <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-inline">
-          <input type="password" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" id="password">
+          <input type="password" name="password"   lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" id="password">
         </div>
       </div>
       <div class="layui-form-item">
@@ -65,12 +64,31 @@
   layui.use(["form","layer"],function(){
     var form = layui.form;
     var layer = layui.layer;
-    //监听表单的提交按钮，当提交按钮触发提交的时候，执行函数
-    form.on("submit(login)",function(data){
-      //1.登陆校验
+    //引用jquery对象
+    var $=layui.$;
 
-      //2.如果登陆成功，跳转后台管理页面
-      window.location.href="/forward/toHome";
+    //监听表单的提交按钮，当提交按钮触发提交的时候，执行函数
+    form.on("submit(login)",function(data){ //data中保存了当前表单的数据
+      //console.log(data);
+      //1.登陆校验
+      //具体实现:通过ajax请求方式，将表单中的数据，提交到controller，接收controller返回的结果，进行校验
+      $.ajax({
+        url:"/emp/login", //定义发送请求的服务器地址
+        type:"post", //配置提交请求的方式
+        data:data.field,  //定义要提交到后台的数据
+        dataType:"json", //将服务器回传的数据转为json格式
+        success:function (res){ //服务器响应成功被接收，会执行success函数
+          //res:存储了服务器返回的数据
+          //console.log(res);
+          if(res.code==0){
+            //2.如果登陆成功，跳转后台管理页面
+            window.location.href="/forward/toHome";
+          }else{
+            //登陆失败,进行消息提示
+            layer.msg(res.msg,{icon:5});
+          }
+        }
+      });
     })
   })
 
