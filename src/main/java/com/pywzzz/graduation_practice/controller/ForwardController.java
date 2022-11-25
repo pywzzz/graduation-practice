@@ -3,6 +3,8 @@ package com.pywzzz.graduation_practice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/forward")
 public class ForwardController {
@@ -35,5 +37,12 @@ public class ForwardController {
     @RequestMapping("/toRole")
     public String toRole(){
         return "role";
+    }
+
+    @RequestMapping("/toLogout")
+    public String toLogout(HttpSession session){
+        //销毁session数据
+        session.invalidate();
+        return "login";
     }
 }
