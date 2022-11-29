@@ -9,40 +9,217 @@
         href="/layui/css/layui.css"/>
 </head>
 <body>
+
+<!--根据角色名称进行搜索-->
+<form class="layui-form" id="searchFrm" lay-filter="searchFrm">
+  <div class="layui-inline">
+    <div class="layui-input-inline">
+      <input type="text" name="searchRoleName" id="searchRoleName" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-inline">
+    <div class="layui-input-inline" style="width: 100px;">
+      <button type="button" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="btnRoleSearch">搜索</button>
+    </div>
+  </div>
+</form>
+
 <!--
 数据表格:
 1.定义表格标签
 2.通过layui表格组件渲染表格标签
 3.在表格组件中指明表格加载的数据来源
 -->
-<table class="layui-table" id="test"></table>
+<table class="layui-table" id="test" lay-filter="test"></table>
+
+<!--定义表格工具条-->
+<script type="text/html" id="toolbarRole">
+  <div class="layui-btn-container">
+    <button type="button" class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+  </div>
+</script>
+
+<script type="text/html" id="toolbarRow">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 
 <!--引入layui js文件-->
 <script type="text/javascript" src="/layui/layui.all.js"></script>
+
+<!--添加表单-->
+<form class="layui-form" lay-filter="roleFrm" id="roleFrm" style="display: none;padding:10px">
+  <!--用隐藏域存储当前弹出表单要提交的后台接口地址-->
+  <input type="hidden" name="action" id="action" class="layui-input"/>
+  <!--用与存储修改时要使用部门编号字段-->
+  <input type="hidden" name="roleId" id="roleId" class="layui-input"/>
+  <div class="layui-form-item">
+    <label class="layui-form-label">角色名称</label>
+    <div class="layui-input-block">
+      <input type="text" name="roleName" lay-verify="required" autocomplete="off" placeholder="请输入部门名称" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">角色状态</label>
+    <div class="layui-input-block">
+      <input type="radio" name="status" value="0" title="可用" checked>
+      <input type="radio" name="status" value="1" title="禁用" >
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="button" class="layui-btn" lay-submit="" lay-filter="btnRoleSave">保存</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
 <!--定义自己的js代码块-->
 <script type="text/javascript">
   //layui: layui组件封装好的对象
   //use: 是layui的一个特定方法,可以引入组件，实现功能
-  layui.use(["layer","laydate","table"],function(){
+  layui.use(["layer","laydate","table","form"],function(){
     //获取table组件对象
     var table = layui.table;
+    var form = layui.form;
+    //获取jq对象
+    var $=layui.$;
+
     //使用table组件渲染表格标签
     table.render({
       elem:"#test" //定义要渲染的目标表格标签
       ,url:"/role/list"  //定义要获取的服务器数据地址
+      ,toolbar:"#toolbarRole"
+      ,page:true  //开启分页
+      ,limit:3   //默认每页3条
+      ,limits:[3,5,10] //可选的每页条数
       ,cols:[
         [
           {field:'roleId', width:120, title: '角色编号', sort: true}
           ,{field:'roleName', width:100, title: '角色名称'}
-          ,{field:'status', width:80, title: '状态', sort: true}
-          ,{field:'deleteFlag', width:80, title: '删除标记',hide:true}
+          ,{field:'status', width:80, title: '状态', sort: true,templet:function (d){
+            //变量名d: 存储了当前行的数据对象
+            if(d.status=='0'){
+              return "<span style='color:green;'>可用</span>";
+            }else{
+              return "<span style='color:red;'>禁用</span>";
+            }
+          }}
+          ,{field:'deleteFlag', width:100, title: '删除标记',hide:true,templet:function (d){
+            if(d.deleteFlag=='0'){
+              return "<span style='color:green;'>未删除</span>";
+            }else{
+              return "<span style='color:red;'>已删除</span>"
+            }
+          }}
           ,{field:'createBy', title: '创建人', width: '100', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
           ,{field:'createTime', title: '创建时间', width:180, sort: true}
           ,{field:'updateBy', title: '修改人', width:100, sort: true}
           ,{field:'updateTime', title: '修改时间', width:180}
+          ,{fixed: 'right', title:'操作', toolbar: '#toolbarRow', width:150}
         ]
       ]
     })
+
+    //使用table组件监听头部工具条的按钮单击事件
+    table.on("toolbar(test)",function (obj){
+      console.log(obj);
+      switch (obj.event){
+        case "add": //添加角色
+          //清空表单内容
+          roleFrm.reset();
+          //设置表单的提交地址
+          $("#action").val("/role/add");
+          //清空roleId
+          $("#roleId").val("");
+
+          layer.open({
+            type:1,
+            content:$("#roleFrm")
+          })
+          break;
+      }
+    })
+
+    //监听表格的行工具条按钮单击事件
+    table.on("tool(test)",function (obj){
+      console.log(obj);
+      switch (obj.event){
+        case "edit":
+          //设置表单提交的后台地址
+          $("#action").val("/role/update");
+          //为表单的元素赋值
+          form.val("roleFrm",obj.data);
+          //弹出表单
+          layer.open({
+            type:1,
+            content:$("#roleFrm")
+          })
+          break;
+        case "del":
+          layer.confirm('真的删除行么', function(index){
+            $.ajax({
+              url:"/role/delete",
+              type:"delete",
+              data:{roleId:obj.data.roleId},
+              dataType:"json",
+              success:function (res){
+                //关闭弹出层
+                layer.close(index);
+
+                if(res.code==0){
+                  layer.msg("删除成功",{icon:6});
+                  //刷新表格
+                  table.reload("test");
+                }else{
+                  layer.msg("删除失败",{icon:5});
+                }
+              }
+            })
+          });
+
+          break;
+      }
+    })
+
+    //监听表单的提交事件
+    form.on("submit(btnRoleSave)",function (obj){
+      console.log(obj);
+      $.ajax({
+        url:$("#action").val(),  //请求的后台接口地址
+        type:"post",    //请求方法
+        data:obj.field, //提交的表单数据
+        dataType:"json",
+        success:function (res){
+          if(res.code==0){
+            //关闭表单窗口
+            layer.closeAll();
+            //给用户提示
+            layer.msg("保存成功",{icon:6});
+            //表格重新加载数据
+            table.reload("test");
+          }else{
+            layer.msg("添加失败",{icon:5});
+          }
+        }
+      })
+    })
+
+    //针对搜索表单做事件监听
+    form.on("submit(btnRoleSearch)",function (obj){
+      //触发表格重新根据查询条件请求数据
+      table.reload("test",{
+        where:{
+          searchRoleName:$("#searchRoleName").val() //查询条件
+        },
+        page:{
+          curr:1 //从第1页，显示结果
+        }
+      })
+    })
+
+    //渲染页面上的表单元素
+    form.render();
 
   });
 
