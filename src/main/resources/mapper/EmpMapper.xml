@@ -11,10 +11,10 @@
             d.dept_name,
             r.role_name
         from tbl_emp e
-        join tbl_dept d
-        on e.dept_id=d.dept_id
-        join tbl_role r
-        on e.role_id=r.role_id
+                 join tbl_dept d
+                      on e.dept_id=d.dept_id
+                 join tbl_role r
+                      on e.role_id=r.role_id
     </sql>
 
     <!--定义查询结果的实体映射-->
@@ -33,4 +33,26 @@
         and e.user_name = #{userName}
         and e.password = #{password}
     </select>
+
+    <select id="listByEmpName" resultMap="empMap">
+        <!--引用定义好的sql语句-->
+        <include refid="empSql"></include>
+        <where>
+            <if test="empName!=null and empName!='' ">
+                and e.emp_name like concat('%',#{empName},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--添加员工-->
+    <insert id="add" >
+        insert into tbl_emp
+        (emp_name,user_name,password,sex,birthday,
+         phone,email,status,create_by,create_time,
+         dept_id,role_id)
+        values
+        (#{empName},#{userName},#{password},#{sex},#{birthday},
+         #{phone},#{email},#{status},#{createBy},#{createTime},
+         #{dept.deptId},#{role.roleId})
+    </insert>
 </mapper>

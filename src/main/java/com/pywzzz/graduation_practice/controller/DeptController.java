@@ -42,6 +42,16 @@ public class DeptController {
         return new Result(0,"",pi.getTotal(),pi.getList());
     }
 
+    /**
+     * 查询所有的部门数据
+     * @return
+     */
+    @RequestMapping("/listAll")
+    public Result listAll(){
+        List<Dept> deptList = deptService.list();
+        return new Result(0,"",deptList.size(),deptList);
+    }
+
     @RequestMapping("/add")
     public Result add(Dept dept){
         //设置部门的创建人(当前登陆的员工)和创建时间

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入layui的css样式文件-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="/layui/css/layui.css"/>
+</head>
+<body>
+
+<!--根据员工名称进行搜索-->
+<form class="layui-form" id="searchFrm" lay-filter="searchFrm">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <input type="text" name="searchEmpName" id="searchEmpName" placeholder="请输入员工名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <div class="layui-input-inline" style="width: 100px;">
+            <button type="button" class="layui-btn" lay-submit="" lay-filter="btnEmpSearch">搜索</button>
+        </div>
+    </div>
+</form>
+<!--
+数据表格:
+1.定义表格标签
+2.通过layui表格组件渲染表格标签
+3.在表格组件中指明表格加载的数据来源
+-->
+<table class="layui-table" id="test" lay-filter="test"></table>
+
+<form class="layui-form" lay-filter="empFrm" id="empFrm" style="display: none;padding:10px">
+    <!--用隐藏域存储当前弹出表单要提交的后台接口地址-->
+    <input type="hidden" name="action" id="action"/>
+    <!--用与存储修改时要使用员工编号字段-->
+    <input type="hidden" name="empId" id="empId"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">员工名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="empName" lay-verify="required" autocomplete="off" placeholder="请输入员工名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">员工账号</label>
+        <div class="layui-input-block">
+            <input type="text" name="userName" lay-verify="required" autocomplete="off" placeholder="请输入员工账号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">员工密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="请输入员工密码" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男" checked>
+            <input type="radio" name="sex" value="女" title="女" >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">生日</label>
+        <div class="layui-input-block">
+            <input type="text" name="birthday" id="birthday" lay-verify="required" autocomplete="off" placeholder="请输入员工生日" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机</label>
+        <div class="layui-input-block">
+            <input type="text" name="phone" lay-verify="required" autocomplete="off" placeholder="请输入员工手机" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="email" lay-verify="required" autocomplete="off" placeholder="请输入员工邮箱" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">员工状态</label>
+        <div class="layui-input-block">
+            <input type="radio" name="status" value="0" title="在职" checked>
+            <input type="radio" name="status" value="1" title="离职" >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门</label>
+        <div class="layui-input-block">
+            <select name="dept.deptId" lay-filter="deptId" id="deptId" lay-verify="required">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block">
+            <select name="role.roleId" lay-filter="roleId" id="roleId" lay-verify="required">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit="" lay-filter="btnEmpSave">保存</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<!--定义表格上方的工具条-->
+<script type="text/html" id="toolbarTab">
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+    </div>
+</script>
+
+<!--定义每一行的工具条-->
+<script type="text/html" id="toolbarRow">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!--引入layui js文件-->
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+<!--定义自己的js代码块-->
+<script type="text/javascript">
+    //layui: layui组件封装好的对象
+    //use: 是layui的一个特定方法,可以引入组件，实现功能
+    layui.use(["layer","laydate","table","form"],function(){
+        //获取table组件对象
+        var table = layui.table;
+        //获取表单组件对象
+        var form=layui.form;
+        //弹出层
+        var layer=layui.layer;
+        //日期
+        var laydate=layui.laydate;
+        //获取jq对象
+        var $=layui.$;
+
+        //使用table组件渲染表格标签
+        table.render({
+            elem:"#test" //定义要渲染的目标表格标签
+            ,url:"/emp/list"  //定义要获取的服务器数据地址
+            ,toolbar:"#toolbarTab" //引用表格工具条，添加一个新增按钮
+            ,page:true //开启分页
+            ,limit:3 //设置每页显示几条数据
+            ,limits:[3,5,10] //配置每页可选的显示条数
+            ,cols:[
+                [
+                    {field:'empId', width:80, title: '编号'}
+                    ,{field:'empName', width:100, title: '员工名称'}
+                    ,{field:'userName', width:100, title: '员工账号'}
+                    ,{field:'sex', width:80, title: '性别'}
+                    ,{field:'birthday', width:150, title: '生日'}
+                    ,{field:'phone', width:120, title: '手机'}
+                    ,{field:'email', width:150, title: '邮箱'}
+                    ,{field:'dept.deptId', width:100, title: '部门',templet:function (d){
+                        return d.dept.deptName;
+                    }}
+                    ,{field:'role.roleId', width:100, title: '角色',templet:function (d){
+                        return d.role.roleName
+                    }}
+                    ,{field:'status', width:80, title: '状态', templet:function (d){
+                        //templet:定义列模板函数，在模板函数中处理数据
+                        //参数d:存储了当前行的对象数据
+                        //console.log(d);
+                        if(d.status=='0'){
+                            return "<span style='color:green;'>在职</span>";
+                        }else{
+                            return "<span style='color:red;'>离职</span>"
+                        }
+                    }}
+                    ,{field:'deleteFlag', width:80, title: '删除标记',hide:false,templet:function (d){
+                        if(d.deleteFlag=='0'){
+                            return "<span style='color:green;'>未删除</span>";
+                        }else{
+                            return "<span style='color:red;'>已删除</span>"
+                        }
+                    }}
+                    ,{field:'createBy', title: '创建人', width: '100', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    ,{field:'createTime', title: '创建时间', width:180, sort: true}
+                    ,{field:'updateBy', title: '修改人', width:100, sort: true}
+                    ,{field:'updateTime', title: '修改时间', width:180}
+                    ,{fixed: 'right', title:'操作', toolbar: '#toolbarRow', width:150}
+                ]
+            ]
+        })
+
+        //监听表格工具条的按钮事件
+        table.on("toolbar(test)",function (obj){
+            //当表格工具条中的按钮点击的时候，输出触发的事件对象信息
+            //console.log(obj);
+            switch (obj.event){
+                case "add":  //针对添加按钮的单击，做对应处理
+                    //重置表单
+                    empFrm.reset();
+                    //设置表单提交地址
+                    $("#action").val("/emp/add");
+                    //清空empId
+                    $("#empId").val("");
+
+                    layer.open({
+                        type:1,
+                        area:"500px",
+                        content:$("#empFrm")
+                    })
+                    break;
+            }
+        })
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            //obj:保存了当前行的数据对象
+            console.log(obj)
+
+            var data = obj.data;
+
+            //点击行工具条中的删除按钮
+            if(obj.event === 'del'){
+
+            } else if(obj.event === 'edit'){ //做修改操作
+
+            }
+        });
+
+        //通过表单对象监听表单提交按钮的单击事件
+        form.on("submit(btnEmpSave)",function (obj){
+            //保存数据
+            $.ajax({
+                url:$("#action").val(),
+                type:"post",
+                data:obj.field,
+                dataType:"json",
+                success:function (res){
+                    if(res.code==0){
+                        //保存成功
+                        layer.closeAll();
+                        layer.msg("保存成功",{icon:6});
+                        //重新刷新表格
+                        table.reload("test");
+                    }
+                }
+            })
+
+            return false;
+        })
+
+        //针对搜索表单做事件监听
+        form.on("submit(btnEmpSearch)",function (obj){
+            //触发表格重新根据查询条件请求数据
+            table.reload("test",{
+                where:{
+                    searchEmpName:$("#searchEmpName").val() //查询条件
+                },
+                page:{
+                    curr:1 //从第1页，显示结果
+                }
+            })
+        })
+
+        //渲染生日日期框
+        laydate.render({
+            elem:"#birthday",
+            type:"datetime"
+        })
+
+        //加载部门下拉框数据
+        $.ajax({
+            url:"/dept/listAll",
+            type:"get",
+            dataType:"json",
+            success:function (res){
+                if(res.code==0){
+                    //console.log("=========部门数据==========")
+                    //console.log(res);
+                    //将返回的数据，添加到部门下拉框中
+                    var depts = res.data;
+                    for(var i=0;i<depts.length;i++){
+                        //用jq方式，将返回的部门数据，一条一条添加到下拉框中
+                        $("#deptId").append("<option value='"+depts[i].deptId+"'>"+depts[i].deptName+"</option>")
+                    }
+                    //重新渲染表单中的下拉框
+                    form.render("select")
+                }
+            }
+        })
+        //加载角色下拉框数据
+        $.ajax({
+            url:"/role/listAll",
+            type:"get",
+            dataType:"json",
+            success:function (res){
+                if(res.code==0){
+                    //console.log("=========角色数据==========")
+                    //console.log(res);
+                    var roles = res.data;
+                    for(var i=0;i<roles.length;i++){
+                        //用jq方式，将返回的部门数据，一条一条添加到下拉框中
+                        $("#roleId").append("<option value='"+roles[i].roleId+"'>"+roles[i].roleName+"</option>")
+                    }
+                    //重新渲染表单中的下拉框
+                    form.render("select")
+                }
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

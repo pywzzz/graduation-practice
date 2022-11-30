@@ -37,6 +37,16 @@ public class RoleController {
         return new Result(0,"",pi.getTotal(),pi.getList());
     }
 
+    /**
+     * 获取所有角色数据
+     * @return
+     */
+    @GetMapping("/listAll")
+    public Result listAll(){
+        List<Role> roleList = roleService.list();
+        return new Result(0,"",roleList.size(),roleList);
+    }
+
     //@RequestMapping("/add")
     @PostMapping("/add")
     public Result add(Role role){

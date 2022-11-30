@@ -45,4 +45,9 @@ public class ForwardController {
         session.invalidate();
         return "login";
     }
+
+    @RequestMapping("/toEmp")
+    public String toEmp(){
+        return "emp";
+    }
 }
