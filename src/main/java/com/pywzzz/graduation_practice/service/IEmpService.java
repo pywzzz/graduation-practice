@@ -11,5 +11,7 @@ public interface IEmpService extends IService<Emp> {
     PageInfo<Emp> listByPage(Integer page,Integer limit,String empName);
     //添加员工
     int add(Emp emp);
+    //修改员工
+    int update(Emp emp);
 }
 

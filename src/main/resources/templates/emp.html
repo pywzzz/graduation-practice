@@ -223,7 +223,21 @@
             if(obj.event === 'del'){
 
             } else if(obj.event === 'edit'){ //做修改操作
-
+                //设置修改表单要提交的服务器地址
+                $("#action").val("/emp/update");
+                //为表单元素设置
+                form.val("empFrm",obj.data);
+                //设置下拉框的值
+                form.val("empFrm",{
+                    "dept.deptId":obj.data.dept.deptId,
+                    "role.roleId":obj.data.role.roleId
+                })
+                //打开显示表单
+                layer.open({
+                    type:1,
+                    area:"500px",
+                    content:$("#empFrm")
+                })
             }
         });
 

@@ -55,4 +55,21 @@
          #{phone},#{email},#{status},#{createBy},#{createTime},
          #{dept.deptId},#{role.roleId})
     </insert>
+    <!--修改员工-->
+    <update id="update">
+        update tbl_emp
+        set emp_name=#{empName},
+            user_name=#{userName},
+            password=#{password},
+            sex=#{sex},
+            birthday=#{birthday},
+            phone=#{phone},
+            email=#{email},
+            status=#{status},
+            update_by=#{updateBy},
+            update_time=#{updateTime},
+            dept_id=#{dept.deptId},
+            role_id=#{role.roleId}
+        where emp_id=#{empId}
+    </update>
 </mapper>

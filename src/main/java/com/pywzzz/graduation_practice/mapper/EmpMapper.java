@@ -15,4 +15,6 @@ public interface EmpMapper extends BaseMapper<Emp> {
     List<Emp> listByEmpName(@Param("empName") String empName);
     //添加员工
     int add(Emp emp);
+    //修改员工
+    int update(Emp emp);
 }

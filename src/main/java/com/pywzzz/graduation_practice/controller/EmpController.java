@@ -60,13 +60,23 @@ public class EmpController {
     @PostMapping("/add")
     public Result add(Emp emp){
         log.info(emp.toString());
-
         //设置部门的创建人(当前登陆的员工)和创建时间
         Emp loginEmp = (Emp)session.getAttribute("loginEmp");
         emp.setCreateBy(loginEmp.getEmpName());
         emp.setCreateTime(new Date());
 
         int count = empService.add(emp);
+        return new Result(0,"",1,count);
+    }
+
+    @PostMapping("/update")
+    public Result update(Emp emp){
+        log.info(emp.toString());
+        //设置部门的创建人(当前登陆的员工)和创建时间
+        Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+        emp.setUpdateBy(emp.getEmpName());
+        emp.setUpdateTime(new Date());
+        int count = empService.update(emp);
         return new Result(0,"",1,count);
     }
 }

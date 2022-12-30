@@ -36,4 +36,9 @@ public class EmpServiceImpl extends ServiceImpl<EmpMapper, Emp> implements IEmpS
     public int add(Emp emp) {
         return this.getBaseMapper().add(emp);
     }
+
+    @Override
+    public int update(Emp emp) {
+        return this.getBaseMapper().update(emp);
+    }
 }
