@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>答题页面</title>
+    <link rel="stylesheet" type="text/css" href="/layui/css/layui.css"/>
+    <style>
+
+        .top-div {
+            padding-top: 100px;
+            background-color: rgba(234, 245, 255, 0.96);
+        }
+
+        .top-div-d {
+            width: 85%;
+            padding: 30px 30px 0px 30px;
+            margin: 0 auto;
+            text-align: center;
+            background-color: rgba(255, 255, 255, .7);
+        }
+
+        .top-div-h {
+            padding: 5px;
+            font-weight: bolder
+        }
+
+        .top-div-p {
+            margin: 5px 0px 0px 0px;
+            color: #a9a9aa;
+        }
+
+        .mid-div {
+            padding: 40px;
+            background-color: white;
+            /*text-align: center;*/
+            margin: 0 auto;
+        }
+
+        .mid-list {
+            width: 50%;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: #cacaca 0px 0px 10px;
+            margin: 0 auto;
+        }
+
+        .mid-question {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .mid-topic {
+            margin: 8px 0;
+            color: #41464b;
+            font-size: 17px;
+        }
+
+        .mid-option {
+            margin: 10px 0;
+            padding: 5px;
+            border-radius: 8px;
+            text-align: left;
+            color: #41464b;
+            background-color: #e2ecf6;
+        }
+
+        .bottom-div{
+            margin: 0 auto;
+            width: 50%;
+            padding-top: 10px;
+            text-align: center;
+        }
+        .bottom-btn-left{
+            float: left;
+        }
+        .bottom-btn-right{
+            float: right;
+        }
+        .bottom-submit{
+            display: none;
+        }
+
+        #id_1 {
+            display: block;
+        }
+
+        @media screen and (max-device-width: 1000px) {
+            .top-div {
+                padding-top: 50px;
+            }
+
+            .mid-list {
+                width: 90%;
+            }
+            .mid-div {
+                padding: 20px;
+                /*background-color: white;*/
+                /*text-align: center;*/
+            }
+            .bottom-div{
+                width: 90%;
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+<!--性格色彩框，边距40，透明白色-->
+<div class="top-div">
+    <div class="top-div-d">
+        <h1 class="top-div-h">FPA性格色彩</h1>
+        <p class="top-div-p">完成测试，获得专业的分析报告</p>
+    </div>
+</div>
+<!--问题大div,上下padding-->
+<div class="mid-div">
+    <!--  进度条加问题选项  -->
+    <div class="mid-list">
+        <!--    进度条    -->
+        <div class="layui-progress layui-progress-big" lay-showPercent="yes" lay-filter="demo">
+            <div class="layui-progress-bar layui-bg-blue" lay-percent=""></div>
+        </div>
+        <!--  问题  -->
+        <div id="con">
+         <th:block th:each="question : ${questionList}">
+            <div class="mid-question" th:id="'id_'+${question.id}">
+                <label class="mid-topic" th:text="${question.id}+'、'+${question.question}"></label>
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block mid-option">
+                            <input type="radio"
+                                   name="item"
+                                   lay-filter="item"
+                                   value="A"
+                                   th:title="${question.optionA}">
+                        </div>
+                        <div class="layui-input-block mid-option">
+                            <input type="radio"
+                                   name="item"
+                                   lay-filter="item"
+                                   value="B"
+                                   th:title="${question.optionB}">
+                        </div>
+                        <div class="layui-input-block mid-option">
+                            <input type="radio"
+                                   name="item"
+                                   lay-filter="item"
+                                   value="C"
+                                   th:title="${question.optionC}">
+                        </div>
+                        <div class="layui-input-block mid-option">
+                            <input type="radio"
+                                   name="item"
+                                   lay-filter="item"
+                                   value="D"
+                                   th:title="${question.optionD}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+         </th:block>
+        </div>
+    </div>
+</div>
+
+<script src="/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script th:inline="javascript">
+    var testerId=[[${testerId}]];
+    layui.use(['layer', 'element', 'form', 'jquery'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            element = layui.element,
+            form = layui.form,
+            $=layui.$;
+        //计算进度条
+        //element.progress('demo', Math.ceil(q.id/30*100)+'%');
+        var result=[];
+        form.on('radio(item)', function(data){
+            //获取当前题目的id编号数值
+            var id=Number($(this).parents(".mid-question").attr("id").replace("id_",""));
+            //隐藏当前题目
+            $("#id_"+id).hide();
+            //更新进度条进度
+            element.progress('demo', Math.ceil(id/30*100)+'%');
+            //将当前选项存储到结果数组中
+            result.push({
+                "testerId":testerId,
+                "questionId":id,
+                "answer":data.value
+            })
+            //题目编号小于30，表示题目没有做完
+            if(id<30){
+                id+=1;
+                //让下一个题目显示
+                $("#id_"+id).show();
+            }else{
+                console.log(result);
+                $.ajax({
+                    url:"/tester/saveResult",
+                    type:"post",
+                    data:JSON.stringify(result),
+                    contentType:"application/json",
+                    success:function (res){
+                        console.log(res);
+                        //window.location.href="/tester/show?testerId="+testerId;
+                    }
+                })
+            }
+
+
+
+
+        });
+
+    });
+</script>
+
+</body>
+</html>
