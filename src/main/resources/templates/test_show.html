@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入layui的css样式文件-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="/layui/css/layui.css"/>
+</head>
+<body>
+
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md10 layui-col-md-offset1">
+            <blockquote class="layui-elem-quote">性格色彩</blockquote>
+            <div id="pieDemo" style="width: 800px;height: 800px;margin: 0 auto"  ></div>
+            <table style="font-size:11pt;" class="mytab" width="85%" border="0" align="center">
+
+                <tbody><tr><td><br><br><div style="padding: 8px;background-color: #AD0401;color: #FFFFFF;font-size: 26px;text-align: center; letter-spacing: 3mm; margin-top: 10px;margin-bottom: 10px;">红色优势</div></td></tr>
+                <tr>
+                    <td align="left">
+                        <div style="line-height:30px; color:#222"><p>1．阳光心态，积极快乐</p><div>红色发明了飞机，蓝色发明了降落伞．红色发明了游艇，蓝色发明了救生圈．红色建造了高楼，蓝色生产了救火栓．红色发射了飞船，蓝色办了保险公司．<br><br>如果说黄色的正面思考更加来源于他们＂不服输＂的动机，更加侧重在解决问题上．那么，红色的正面思考，更多地是因为他们天性习惯于＂向往快乐和美好＇的动机，更加侧重在精神层面上的鼓励和暗示．<br><br>红色以喜悦拥抱每一件事情．健康的红色能在每件事情中看到美好的一面，即使是他们不理解或未曾思考过的事物都能使他们快乐．生命的黑暗和死亡的阴影，都无法令他们忧虑．奇妙的是，当他们对生命抱以开放和接受的态度而不苛求什么时，生命所带给他们的意义却更加丰富． </div><p>2．激情澎湃，梦想万岁</p><div>一种有内而外的感性动物．红色具备＂生命的激情＂，为人感性，情感上高度丰富． <br><br>黄色的现实主义，在梦想中更加注重的是成功．蓝色的古典主义，小心合理地判定自己的梦想．绿色的稳定主义，更加宁愿不冒风险安于现状．红色的浪漫主义，更加看重的是人生的体验．</div><p>3．热情开朗，喜欢交友</p><div>字典里没有＂陌生＂这两个字． <br><br>在
+                            对于朋友的定义上，蓝色秉持的是＂人生得一知己足矣！＂的人生哲学．红色则更加宁愿是＂普天之下，莫非我友＂的人生态度．对于大多销售人员来讲，红色早期
+                            上手更快，因为他们的人际关系富有宽度但偏浅．而蓝色在早期开拓不力，完全是因为他们在拓展人际关系的宽度上有着自己的困难，他们的人际关系是窄而深的路
+                            径． <br><br>红色把幸福与快乐视为人生的目标．由于他们对事情总有很高的兴致，因此他们是令人愉快的伙伴．而且他们的活力与热情具有感染力，能够辐射到周围，和这样的人相处时，总是充满乐趣而且容易被他们活泼的精神所感动．</div><p>4．童心未泯，富有趣味 </p><div>虽然红色也会被一些事物困扰，但他们对自由的强烈的渴望，将本能地分辨出包袱并且毫不犹豫地甩开它．<br><br>红色天性里对于快乐的向往，让他们可以用童心来欣赏一切，这种生活态度和哲学，将使他们不会复杂化．他们最懂得享受生命，不管他们从事的是什么，即便正在苦干，也显得似乎　　乐在其中，他们过日子秉持的信心就是－－－好的还没有到来．</div><p>5．乐于助人，不记愁苦</p><div>有错就认，不记愁 </div><p>6．善于表达，调动气氛</p><div>红色多见娱乐类的主持．兰色多见访谈类的主持．黄色多见记实类的主持．绿色多见播报类的主持．<br><br>如果我们把＂让他人心动＂的能力界定为感染力，而把＂让他人行动＂的能力界定为影响力，那感染里更多是来源于红色，而影响力更多则来自于黄色．</div><p>7．真诚信任，感染四方</p><div>红色是天生的激励者 <br><br>当红色给予某个人高期望和高鼓励时，他往往会实现那些期望的．</div><p>8．乐在变化，创新意识</p><div>亢奋天天都有，各有巧妙不同 <br><br>红色比其他性格更容易去改变，因为他们喜欢新主意，新思想，新事物，还因为他们在变化和创造过程中得到无限的乐趣，由于这个世界是无穷的，所以他们能够一再地经历这种狂喜．</div><div style="page-break-before:always;"></div><br><br><h3>红色的天然优势</h3><br><div style="line-height: 30px;">作为个体 ：<br>高度乐观的积极心态 <br>喜欢自己，也容易接纳别人 <br>把生命当作值得享受的经验 <br>喜欢新鲜，变化和刺激 <br>经常开心，追求快乐 <br>情感丰富而外露 <br>天真有童心，富有趣味<br>自由自在，不受拘束 <br>喜欢开玩笑和调侃 <br>别出心裁，与众不同 <br>表现力强 <br>容易受到人们的喜欢和欢迎<br>生动活泼，好奇心强 </div></div><div style="page-break-before:always;"></div>
+                    </td>
+                </tr>
+
+                <tr><td><br><br><div style="padding: 8px;background-color: #AD0401;color: #FFFFFF;font-size: 26px;text-align: center; letter-spacing: 3mm; margin-top: 10px;margin-bottom: 10px;">蓝色优势</div></td></tr>
+                <tr>
+                    <td align="left">
+                        <div style="line-height:30px; color:#222"><p>1．思想深邃，独立思考</p><p>2．成熟稳重，安全放心 </p><div>红色喜欢刺激．蓝色喜欢安全．黄色喜欢挑战．绿色喜欢稳定．</div><p>3．情感细腻，体贴入微 </p><p>4．一诺千金，忠诚情谊</p><div>因为他们在承诺上的高度注重和甘愿以生命来维护的态度，蓝色得以成为四种性格中最值得信任的人群．<br><br>蓝色对人忠诚，黄色对事忠诚．蓝色对人负责，黄色对事负责．蓝色富有责任心，黄色富有责任感． </div><p>5．计划周详，注重规则 </p><div>＂做任何事情首先指定好计划，然后严格地按照计划去执行＂，也许这是蓝色做事的原则中仅次于＂要么不做，要做就做到最好＂最高座右铭只后的第二准则．<br><br>红色喜欢变化中新奇的不确定的快乐，而蓝色喜欢计划中程序的安全感和稳定．<br><br>黄色：用什么猫捉不重要，捉到老鼠最重要．蓝色：捉到老鼠很重要，用什么猫捉和怎么捉的同样重要．红色：捉老鼠并不重要，捉老鼠好不好玩最重要．绿色：你们嫌不嫌烦啊，老鼠不去管它，放在那里不是也蛮好的吗？<br><br>红色：不喜欢被规则束缚的人，偶尔不按规则出牌会觉得新鲜有趣．黄色：打破规则的人，他们更希望由自己来制定规则而不是遵守规则．绿色：害怕违反规则的人，但绿色可能因为懒散而无法达到规则的要求．蓝色：最遵守规则的人，并且竭尽全力作到规则内的最好．</div><p>6．讲究精确，迷恋细节 </p><div>蓝
+                            色是完美主义者，他们希望成为最好，找到最好，并且努力做到最好．他们辛劳地努力工作，喜欢做高质量的工作，即使这以为着要花更长的时间，付出艰巨的努
+                            力，也在所不惜．对于他们来将，如果这个事情值得做，那就一定要做到最好．任何的松懈和放低标准让他们感到自己良心的谴责，那将是一种奇耻大辱．</div><p>7．考虑全面，善于分析 </p><div>蓝色是最有潜力成为理财高手的人． <br><br>当黄色力图用最简捷的方法解决最复杂的问题时，蓝色也许正在用最复杂的方法诠释见得问题以确保周详和严谨．而正是如此，他们经常运用现有的一个观点并使他发展，他们具有发明家的思想和本领．因此，黄色是把复杂问题简单化，兰色可把简单问题复杂化．</div><p>8．执着有恒，坚持到底</p><div>红色要大快乐，但是小快乐一个也不能少．而蓝色如果有大快乐，小快乐我宁可一个都不要．</div><br><br><h3>蓝色的天然优势</h3><br><div style="line-height: 30px;">作为个体 :<br>严肃的生活哲学 <br>思想深邃，独立思考而不盲从<br>沉默寡言，老成持重 <br>注重承诺，可靠安全 <br>谨慎而深藏不露 <br>坚守原则，责任心强 <br>遵守规则，井井有条 </div><br><div style="line-height: 30px;">深沉的理想主义者 :<br>敏感细腻 <br>高标准，追求完美<br>谦和稳健 <br>善于分析，富有条理<br>待人忠诚，富有自我牺牲精神<br>深思熟虑，三思而后行 <br>坚韧执着 </div><br><div style="line-height: 30px;">沟通特点:<br>享受敏感而有深度的交流 <br>设身处地地体会他人 <br>能记住谈话时共鸣的感情和思想<br>喜欢小群体叫的思想碰撞 <br>关注谈话的细节</div><br><div style="line-height: 30px;">作为朋友:<br>默默地为他人付出以表示关切和爱 <br>对友谊忠诚不渝 <br>真诚关怀朋友的境遇，善于体贴他人<br>能够记得特殊的日子 <br>遭遇难关时，极力给予鼓舞和安慰<br>很少向他人表达内心的看法 <br>经常扮演问题分析的角色 </div><br><div style="line-height: 30px;">对待工作和事业: <br>强调制度，程序，规范，细节和流程 <br>做事之前首先计划，且严格地按照计划去执行<br>喜欢探究及根据事实行事 <br>尽忠职守，追求卓越 <br>高度自律 <br>喜欢用表格，数字的管理来验证效果<br>注重承诺 <br>一丝不苟地执行工作</div></div><div style="page-break-before:always;"></div>
+                    </td>
+                </tr>
+
+                <tr><td><br><br><div style="padding: 8px;background-color: #AD0401;color: #FFFFFF;font-size: 26px;text-align: center; letter-spacing: 3mm; margin-top: 10px;margin-bottom: 10px;">黄色优势</div></td></tr>
+                <tr>
+                    <td align="left">
+                        <div style="line-height:30px; color:#222"><p>1．目标导向，永无止境</p><div>以目标和结果为导向，不达目的，誓不罢休，是黄色从来就知道的． <br><br>信念的坚持，至少也是生命延续的理由．虽然黄色和兰色都是坚持，但在信念的坚持上，黄色仍比兰色要做的出色．<br><br>黄色似乎很少有知足的时候，他们总是给自己定下一个又一个的目标去达成．成大事的黄色，都不能容忍平淡无奇的生活状态，渴望体验斗争的乐趣． <br><br>黄色是四种人当中最有工作狂倾向的人．<br><br>红色：今朝有酒今朝醉，明日再担明日忧．蓝色：天下本无事，庸人自扰之．黄色：居安思危，不进则退．绿色：无论风吹雨打，我自巍然不动． </div><p>2．求胜欲望，战胜对方</p><div>黄色自己的心理暗示正式－－－成为生活的强者，与此同时，他们也尊重强者，他们认为与强者的相处可以让自己变得更强．通过与成功者的相处可以让自己更快找到成功的捷径．<br><br>你不得不佩服黄色人的坚定和执着，他们希望能够战胜别人，让别人服输的那种欲望几乎纵贯他们整个生命的任何一个细节．黄色天性中流动着西班牙斗牛的血液，在与天斗，与人斗，与己斗的过程中他们体验到自己人生的价值． </div><p>3．斗天斗地，敢说敢做 </p><div>一
+                            旦黄色的想法遭到反对时，那只会激发起他们加倍的努力和挑战欲．当红色已经跑到其他地方，绿色停止不前，蓝色已经考虑是否要转移目的地时，黄色只会更加努
+                            力全力以赴地向前冲．就像一个电动玩具的机器人，当走到一堵墙面前，他们仍旧直行，企图穿越，与其改变方向或者计划，还不如把挡路饿墙给废掉，这就是他们
+                            的逻辑．</div><p>4．坚定自信，永不言败 </p><div>黄色对于目标的执着，让他们认定逆境是一个伟大的教师，他们笃信着那些一生都走着平坦大道的人是培养不出力量的．黄色性格通过逆着潮流而不是顺着潮流游泳，来培养出他们的力量．也许着就是所谓的＂越挫越勇＂ </div><p>5．控制情绪，抗压力强</p><div>黄色告诉我们＂受苦的人没有悲观的权利，远征的人没有流泪的资格． <br><br>黄色不受情感干扰的能力，在推进事业的过程中尤其重要．</div><p>6．坦率直接，实用主义</p><div>即使对自己喜欢的人黄色也不是通过柔和的语言来传达，而是以行动保护对方来表达自己的情感．他们认为支撑爱情的是责任，爱情就是保护对方，给对方提供安全，其他都是没有实际意义的．<br><br>使用注意往往引导黄色以最直接便捷，浅显明了的方式来说明和阐释或玄奥或重大的问题． </div><p>7．快速决断，敢冒风险 </p><div>工作能力对于黄色来说，是他们的财富和责任．从商业的角度来看，追求进步和成功使黄色的人成为成功路上的王者，他们比其他性格更容易迅速取得胜利． </div><p>8．抓大放小，高效行动</p><div>黄色做决定不费力，归根结底，完全是因为他永远知道，什么才是最重要的．他们能够放大抓小，永远关注结果．<br><br>只要有什么新想法，立刻就会付诸实行．这样的行动力是黄色的能量所赐，同时也起到了消除忧郁的作用。他们的日程表总是排的满满的，工作以外的时间会被旅行，运动等活动填满，什么也不做的空闲时间，对他们来说，不仅非常不健全，甚至还是一种恐怖． </div><div style="page-break-before:always;"></div><br><br><h3>黄色的天然优势</h3><br><div style="line-height: 30px;">作为个体 :<br>不达目标，誓不罢休 <br>不停地给自己设定目标以推进前进<br>把生命当成竞赛 <br>行动迅速，活力充沛 <br>意志坚强 <br>自信，不情绪化，而且非常有活力<br>坦率，直截了当，一针见血 <br>强烈的进取心，居安思危 <br>独立性强 <br>有强烈的求胜欲 <br>不畏强权并敢于冒险 <br>不易气馁，不在乎外界的评价，坚持自己所选择的道路和方向 <br>危难时刻挺身而出 <br>讲究速度和效率 <br>敢于接受挑战并渴望成功 </div><br><div style="line-height: 30px;">沟通特点 :<br>以务实的方式主导会谈 <br>喜欢主导整个事情进行的方式 <br>能够直接抓住问题的本质 <br>说话用字简明扼要，不喜欢拐弯抹角<br>不受情绪干扰和控制 <br></div><br><div style="line-height: 30px;">作为朋友 :<br>给予解决问题的方法，而非纠缠在过去 <br>迅速提出忠告和方向 <br>直言不讳地提出建议</div><br><div style="line-height: 30px;">对待工作和事业 :<br>动作干净利落，讲求效率 <br>能够承担长期高强度的压力 <br>强烈的目标趋向，善于设定目标 <br>高瞻远瞩，有全局观念<br>善于委派工作 <br>坚持不懈，促成活动 <br>掌握重点执行 <br>行事作风明快 <br>天生的领导者和富有能力 <br>竞争越强，精力越旺，愈挫愈勇 <br>寻求实际的解决方法 <br>以结果和完成任务为导向，并且高效率<br>善于快速决策并处理所遇到的一切问题 <br>富有责任感</div></div><div style="page-break-before:always;"></div>
+                    </td>
+                </tr>
+
+                <tr><td><br><br><div style="padding: 8px;background-color: #AD0401;color: #FFFFFF;font-size: 26px;text-align: center; letter-spacing: 3mm; margin-top: 10px;margin-bottom: 10px;">绿色优势</div></td></tr>
+                <tr>
+                    <td align="left">
+                        <div style="line-height:30px; color:#222"><p>1．中庸之道，稳定低调 </p><div>如果说，红色给我们生活的激情和快乐，蓝色给我们稳重和信任，而黄色给我们勇气和坚定．无论是谁，当我们和绿色相处的时候，我们感受到的是轻松，自然，没有压力．<br> <br> 红色：睡不着便拼命给朋友电话或者短信．蓝色：睡不着辗转反侧．黄色：睡不着便不睡，爬起来工作．绿色：睡不着眯着．</div><p>2．乐知天命，与世无争</p><div>黄色有着活跃的推动力，然而由于他们的强势却树敌不少．等到真正选择领导的时候，最高阶层和民众往往会对那些没有敌人的绿色情有独钟． <br> <br> 绿色的快乐是因为计较的少． </div><p>3．毕生无火，巧卸冲突</p><div>红色具备＂选择性遗忘＂，他们可以选择性地忘记那些痛苦的记忆，从而自己的记忆体中一直保存着美好与快乐．绿色具备＂选择性倾听＂，让绿色将其他性格无法忍受的冲　突回避，只选择听让自己心情舒畅的话．</div><p>4．镇定自若，处事不惊</p><p>5．天性宽容，耐心柔和 </p><p>6．笑遍天涯，冷面幽默 </p><div>蓝色是黑色幽默．黄色是硬幽默．红色是热幽默。绿色是冷幽默．</div><p>7．先人后己，与取先予</p><p>8．领导风格，以人为本</p><br><br><h3>绿色的天然优势</h3><br><div style="line-height: 30px;">作为个体: <br>爱静不爱动，有温柔祥和的吸引力和宁静愉悦的气质 <br>和善的天性，做人厚道 <br>追求人际关系的和谐 <br>奉行中庸之道，为人稳定低调<br>遇事以不变应万变，镇定自若 <br>知足常乐，心态轻松 <br>追求平淡的幸福生活 <br>有松弛感，能融入所有的环境和场合<br>从不发火，温和，谦和，平和 <br>做人懂得＂得饶人处且饶人＂ <br>最求简单随意的生活方式 </div><br><div style="line-height: 30px;">沟通特点: <br>以柔克刚，不战而屈人之兵 <br>避免冲突，注重双赢 <br>心平气和且慢条斯理<br>善于接纳他人意见 <br>最佳的倾听者，极具耐心 <br>擅长让别人感觉舒适 <br>有自然和不经意的冷幽默 <br>松弛大度，不急不徐 </div><br><div style="line-height: 30px;">作为朋友 ：<br>从无攻击性 <br>富有同情心和关心 <br>宽恕他人对自己的伤害 <br>能接纳所有不同性格的人 <br>和善的天性及圆滑的手腕 <br>对友情的要求不严苛 处处为别人考虑，不吝付出 <br>与之相处轻松自然有没有压力 <br>从不尝试去改变他人</div><br><div style="line-height: 30px;">对待工作和事业: <br>高超的协调人际关系的能力 <br>善于从容地面对压力 <br>巧妙地化解冲突 <br>缓步前进以取得思考空间<br>注重人本管理 <br>善于为别人着想 <br>一团体为导向 <br>创造稳定性<br>用自然低调的行事手法处理事务 </div></div><div style="page-break-before:always;"></div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/echarts.min.js"></script>
+<!--引入layui js文件-->
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+<script th:inline="javascript">
+    var testerId=[[${testerId}]];
+    //layui: layui组件封装好的对象
+    //use: 是layui的一个特定方法,可以引入组件，实现功能
+    layui.use(["layer","laydate","table","form"],function() {
+        //获取table组件对象
+        var table = layui.table;
+        //获取表单组件对象
+        var form = layui.form;
+        //获取jq对象
+        var $ = layui.$;
+
+        $.ajax({
+            url:"/tester/testerData",
+            type:"post",
+            data:{"testerId":testerId},
+            success:function (res){
+                console.log(res);
+                var data = res.data;
+                //初始化饼状图
+                var chartDom = document.getElementById('pieDemo');
+                var myChart = echarts.init(chartDom);
+                var option;
+                option = {
+                    title: {
+                        text: 'FPA性格测试报告'+'【'+data.name+'】',
+                        subtext: '【测试人】'+data.name+'【手机号】'+data.phone+'【测试时间】'+data.createTime,
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left'
+                    },
+                    series: [
+                        {
+                            name: '性格颜色',
+                            type: 'pie',
+                            radius: '50%',
+                            data: [
+                                { value: data.blue==null?0:data.blue, name: '蓝色性格',itemStyle:{color:'#3695ff'} },
+                                { value: data.green==null?0:data.green, name: '绿色性格',itemStyle:{color:'#36ff25'} },
+                                { value: data.yellow==null?0:data.yellow, name: '黄色性格',itemStyle:{color:'#faff11'} },
+                                { value: data.red==null?0:data.red, name: '红色性格',itemStyle:{color:'#ff392a'} },
+                            ],
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                myChart.setOption(option);
+            }
+        })
+    })
+</script>
+
+</body>
+</html>

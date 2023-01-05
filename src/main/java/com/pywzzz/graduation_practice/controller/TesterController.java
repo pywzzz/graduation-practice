@@ -3,21 +3,21 @@ package com.pywzzz.graduation_practice.controller;
 import com.pywzzz.graduation_practice.entity.Question;
 import com.pywzzz.graduation_practice.entity.TestResult;
 import com.pywzzz.graduation_practice.entity.Tester;
+import com.pywzzz.graduation_practice.entity.TesterVo;
 import com.pywzzz.graduation_practice.service.IQuestionService;
 import com.pywzzz.graduation_practice.service.ITestResultService;
 import com.pywzzz.graduation_practice.service.ITesterService;
 import com.pywzzz.graduation_practice.util.Result;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,6 +47,8 @@ public class TesterController {
         List<Tester> testerList = testerService.list(qw);
         //如果没有该手机号的记录，说明之前没有测试过
         if(testerList.size()==0){
+            //设置做题者的做题时间
+            tester.setCreateTime(new Date());
             //将该测试者的信息，存储到测试用户表中
             testerService.save(tester);
             return new Result(0,"还没有测试过",1,tester);
@@ -82,5 +84,25 @@ public class TesterController {
         testerService.update(uw); //执行更新测试者
         //向前台返回执行结果
         return new Result(0,"成功",1L,resultList.get(0).getTesterId());
+    }
+
+    /**
+     * 根据测试者编号，跳转到数据显示页面
+     * @param testerId
+     * @return
+     */
+    @RequestMapping("/show")
+    public String show(Model model, Integer testerId){
+        model.addAttribute("testerId",testerId);
+        //跳转页面
+        return "test_show";
+    }
+
+    @RequestMapping("/testerData")
+    @ResponseBody
+    public Result testerData(Integer testerId){
+        //根据测试者编号，查询测试者数据
+        TesterVo testerVo =  testerService.getById(testerId);
+        return new Result(0,"success",1,testerVo);
     }
 }
