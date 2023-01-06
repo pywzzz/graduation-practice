@@ -10,6 +10,7 @@ import com.pywzzz.graduation_practice.service.ITesterService;
 import com.pywzzz.graduation_practice.util.Result;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -104,5 +105,15 @@ public class TesterController {
         //根据测试者编号，查询测试者数据
         TesterVo testerVo =  testerService.getById(testerId);
         return new Result(0,"success",1,testerVo);
+    }
+
+
+    @RequestMapping("/list")
+    @ResponseBody
+    public Result list(Integer page,Integer limit){
+        //分页查询所有数据
+        PageInfo<TesterVo> pi = testerService.listByPage(page, limit);
+        //返回Layui表格需要的数据结构
+        return new Result(0,"success",pi.getTotal(),pi.getList());
     }
 }

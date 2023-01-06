@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入layui的css样式文件-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="/layui/css/layui.css"/>
+</head>
+<body>
+    <!--定义表格标签-->
+    <table class="layui-table" id="test" lay-filter="test"></table>
+
+    <!--引入layui js文件-->
+    <script type="text/javascript" src="/layui/layui.all.js"></script>
+    <script>
+        layui.use(["layer","laydate","table","form"],function(){
+            //获取table组件对象
+            var table = layui.table;
+            //获取表单组件对象
+            var form=layui.form;
+            //获取jq对象
+            var $=layui.$;
+
+            //使用table组件渲染表格标签
+            table.render({
+                elem:"#test" //定义要渲染的目标表格标签
+                ,url:"/tester/list"  //定义要获取的服务器数据地址
+                ,page:true //开启分页
+                ,limit:3 //设置每页显示几条数据
+                ,limits:[3,5,10] //配置每页可选的显示条数
+                ,cols:[
+                    [
+                        {field:'id', width:120, title: '编号'}
+                        ,{field:'name', width:100, title: '测试者'}
+                        ,{field:'status', width:80, title: '状态', templet:function (d){
+                            //templet:定义列模板函数，在模板函数中处理数据
+                            //参数d:存储了当前行的对象数据
+                            //console.log(d);
+                            if(d.status=='1'){
+                                return "<span style='color:green;'>已完成</span>";
+                            }else{
+                                return "<span style='color:red;'>未完成</span>"
+                            }
+                        }}
+                        ,{field:'createTime', title: '创建时间', width:180}
+                        ,{field:'red', title: '红色', width:100,style:"color:#FF5722"}
+                        ,{field:'blue', title: '蓝色', width:100,style:"color:#01AAED"}
+                        ,{field:'yellow', title: '黄色', width:100,style:"color:#FFB800"}
+                        ,{field:'green', title: '绿色', width:100,style:"color:#5FB878"}
+                    ]
+                ]
+            })
+        });
+    </script>
+</body>
+</html>

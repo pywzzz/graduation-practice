@@ -55,4 +55,9 @@ public class ForwardController {
     public String toTestLogin(){
         return "test_login";
     }
+
+    @RequestMapping("/toTester")
+    public String toTester(){
+        return "tester";
+    }
 }
